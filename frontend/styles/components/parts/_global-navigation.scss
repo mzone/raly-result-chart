@@ -1,28 +1,27 @@
 .global-navigation {
-  position: absolute;
+  background: #fff8;
   bottom: 0;
   left: 0;
+  position: absolute;
   width: 100%;
 
-  background: #FFFFFF88;
-
   > ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
     > li {
       flex: 1;
 
       > a {
-        display: flex;
         align-items: center;
-        justify-content: center;
-        height: 80px;
+        display: flex;
         font-size: 11px;
+        height: 80px;
+        justify-content: center;
         text-decoration: none;
       }
     }
