@@ -1,7 +1,10 @@
+import GlobalNavigation from "../parts/GlobalNavigation";
+
 export default function LayoutDefault(page) {
     return (
-        <>
-            <main>LayoutDefault{page}</main>
-        </>
+        <div className="wrap">
+            <main>{page}</main>
+            <GlobalNavigation/>
+        </div>
     )
 }
