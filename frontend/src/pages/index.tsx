@@ -35,7 +35,7 @@ const ssListItems = [
     ]
 ];
 
-export default () => {
+const index = () => {
     return (
         <>
             <PageHeader>
@@ -61,4 +61,6 @@ export default () => {
             </PageBody>
         </>
     )
-}
+};
+
+export default index;
