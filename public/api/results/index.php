@@ -1,6 +1,6 @@
 <?php
 
-define('FILE_DIR', dirname(__FILE__) . '/../../results');
+define('FILE_DIR', dirname(__FILE__) . '/../../data/2021');
 define('RESULT_PAGE_BASE_URL', 'https://trics.web.fc2.com/21/j/');
 
 function makePageUrlList($lastSSNo)
