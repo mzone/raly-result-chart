@@ -12,14 +12,14 @@ export default function GlobalNavigation() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/">
+                    <Link href="/bump-chart/">
                         <a>
                             BUMP CHART
                         </a>
                     </Link>
                 </li>
                 <li>
-                    <Link href="/">
+                    <Link href="/entrants">
                         <a>
                             ENTRANT
                         </a>
