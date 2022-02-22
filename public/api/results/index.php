@@ -1,6 +1,11 @@
 <?php
+$key = isset($_GET['key']) ? htmlspecialchars($_GET['key'], ENT_QUOTES) : null;
 
-define('FILE_DIR', dirname(__FILE__) . '/../../data/2021');
+if ( ! $key) {
+    throw new ErrorException("取得できませんでした key param not found");
+}
+
+define('FILE_DIR', dirname(__FILE__) . '/../../data/rallyTango2021');
 define('RESULT_PAGE_BASE_URL', 'https://trics.web.fc2.com/21/j/');
 
 function makePageUrlList($lastSSNo)
