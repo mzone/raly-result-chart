@@ -1,6 +1,7 @@
 import type {ReactElement, ReactNode} from 'react'
 import type {NextPage} from 'next'
 import type {AppProps} from 'next/app'
+import {RecoilRoot} from "recoil";
 import LayoutDefault from "../layouts/LayoutDefault";
 import '../../styles/_index.scss'
 
@@ -22,7 +23,11 @@ const app = ({Component, pageProps}: AppPropsWithLayout) => {
     //const getLayout = Component.getLayout ?? ((page) => page)
     const getLayout = Component.getLayout ?? LayoutDefault
 
-    return getLayout(<Component {...pageProps} />)
+    return (
+        <RecoilRoot>
+            {getLayout(<Component {...pageProps} />)}
+        </RecoilRoot>
+    )
 };
 
 export default app;

@@ -3,13 +3,13 @@ import Link from "next/link";
 import PageBody from "../parts/PageBody";
 import EntrantList from "../parts/EntrantList";
 import React, {useState, useEffect} from 'react'
-import {useRecoilState} from "recoil";
+import {useRecoilValue} from "recoil";
 import Entrants from "../states/entrants";
 
 
 const entrantsPage = () => {
 
-    const [entrants] = useRecoilState(Entrants);
+    const entrants = useRecoilValue(Entrants);
 
     return (
         <>
