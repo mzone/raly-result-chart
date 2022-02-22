@@ -20,6 +20,7 @@
     "next": "12.0.10",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "recoil": "^0.6.1",
     "sass": "^1.49.7",
     "stylelint": "^14.5.0",
     "stylelint-config-standard": "^25.0.0",
