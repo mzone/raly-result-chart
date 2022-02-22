@@ -3,19 +3,13 @@ import Link from "next/link";
 import PageBody from "../parts/PageBody";
 import EntrantList from "../parts/EntrantList";
 import React, {useState, useEffect} from 'react'
-import axios from "axios";
+import {useRecoilState} from "recoil";
+import Entrants from "../states/entrants";
 
 
 const entrantsPage = () => {
 
-    const [entrants, setEntrants] = useState([]);
-
-    useEffect(() => {
-        axios.get('http://localhost:8888/api/entrants/?cname=rallyTango2021')
-            .then(res => {
-                setEntrants(res.data.entrants);
-            })
-    }, [])
+    const [entrants] = useRecoilState(Entrants);
 
     return (
         <>
