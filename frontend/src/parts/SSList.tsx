@@ -1,6 +1,8 @@
 const SSList = ({items}) => {
-    const days = items.map((day, index) => {
-        const SSLIstItems = day.map((SS) => SSLIstItem(SS.no, SS.name, SS.dist))
+
+    const days = !Array.isArray(items) ? (<li>EMPTY</li>) : items.map((day, index) => {
+
+        const SSLIstItems = !Array.isArray(day) ? (<li>EMPTY</li>) : day.map((SS) => SSLIstItem(SS.no, SS.name, SS.dist))
         return (
             <li key={index}>
                 Day {index + 1}

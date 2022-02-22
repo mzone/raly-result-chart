@@ -2,40 +2,20 @@ import PageHeader from "../parts/PageHeader";
 import Link from 'next/link'
 import PageBody from "../parts/PageBody";
 import SSList from "../parts/SSList";
-
-const ssListItems = [
-
-    [
-        {
-            no: 1,
-            name: 'IwatakiOkuyori1',
-        },
-        {
-            no: 2,
-            name: 'Taiko',
-        },
-        {
-            no: 3,
-            name: 'Okuyori',
-        }
-    ],
-    [
-        {
-            no: 4,
-            name: 'IwatakiOkuyori1',
-        },
-        {
-            no: 5,
-            name: 'Taiko',
-        },
-        {
-            no: 6,
-            name: 'Okuyori',
-        }
-    ]
-];
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const index = () => {
+
+    const [specialStages, setSpecialStages] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8888/api/specialStages/?cname=rallyTango2021')
+            .then(res => {
+                setSpecialStages(res.data);
+            })
+    }, [])
+
     return (
         <>
             <PageHeader>
@@ -57,7 +37,7 @@ const index = () => {
             </PageHeader>
 
             <PageBody>
-                <SSList items={ssListItems}/>
+                <SSList items={specialStages}/>
             </PageBody>
         </>
     )
