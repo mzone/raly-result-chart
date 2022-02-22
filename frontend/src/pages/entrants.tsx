@@ -2,19 +2,25 @@ import PageHeader from "../parts/PageHeader";
 import Link from "next/link";
 import PageBody from "../parts/PageBody";
 import EntrantList from "../parts/EntrantList";
+import React, {useState, useEffect} from 'react'
+import axios from "axios";
 
-const entrants = () => {
+
+const entrantsPage = () => {
+
+    const [entrants, setEntrants] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8888/api/entrants/?cname=rallyTango2021')
+            .then(res => {
+                setEntrants(res.data.entrants);
+            })
+    }, [])
+
     return (
         <>
             <PageHeader>
                 {{
-                    left: (
-                        <Link href="/">
-                            <a>
-                                <i className="fa-solid fa-arrow-left"/> aa
-                            </a>
-                        </Link>
-                    ),
                     center: (
                         <>
                             <div>TOYOTA GAZOO Rally Challenge 2017 Rd7 takaoka</div>
@@ -25,10 +31,10 @@ const entrants = () => {
             </PageHeader>
 
             <PageBody>
-                <EntrantList items={[1,2,3]}/>
+                <EntrantList items={entrants}/>
             </PageBody>
         </>
     )
 };
 
-export default entrants;
+export default entrantsPage;

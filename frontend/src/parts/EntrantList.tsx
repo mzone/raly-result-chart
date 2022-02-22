@@ -1,15 +1,19 @@
 const EntrantList = ({items}) => {
-    const itemObjs = items.map((item) => EntrantLIstItem(item));
+    const itemObjs = !Array.isArray(items) ? (<li>EMPTY</li>) : items.map((item) => EntrantLIstItem(item));
     return (
-        <ul className="ss-list">
+        <ul className="entrant-list">
             {itemObjs}
         </ul>
     )
 }
 const EntrantLIstItem = (item) => {
     return (
-        <li key={item.no}>
-            <div>{item.className}</div>
+        <li key={item.no} className="entrant-list-item">
+            <div>
+                <div>{item.no}</div>
+                <div>{item.className}</div>
+            </div>
+
             <div>{item.drName}</div>
             <div>{item.coDrName}</div>
             <div>{item.carName}</div>
