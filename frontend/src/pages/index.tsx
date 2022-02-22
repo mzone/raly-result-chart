@@ -2,19 +2,12 @@ import PageHeader from "../parts/PageHeader";
 import Link from 'next/link'
 import PageBody from "../parts/PageBody";
 import SSList from "../parts/SSList";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {useRecoilState} from "recoil";
+import SpecialStages from "../states/specialStages";
 
 const index = () => {
 
-    const [specialStages, setSpecialStages] = useState([]);
-
-    useEffect(() => {
-        axios.get('http://localhost:8888/api/specialStages/?cname=rallyTango2021')
-            .then(res => {
-                setSpecialStages(res.data);
-            })
-    }, [])
+    const [specialStages] = useRecoilState(SpecialStages);
 
     return (
         <>
