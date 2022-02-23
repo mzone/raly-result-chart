@@ -1,15 +1,13 @@
 import PageHeader from "../parts/PageHeader";
-import Link from "next/link";
 import PageBody from "../parts/PageBody";
 import EntrantList from "../parts/EntrantList";
-import React, {useState, useEffect} from 'react'
-import {useRecoilValue} from "recoil";
+import {useRecoilValueLoadable} from "recoil";
 import Entrants from "../states/entrants";
 
 
 const entrantsPage = () => {
 
-    const entrants = useRecoilValue(Entrants);
+    const entrantsLoadable = useRecoilValueLoadable(Entrants);
 
     return (
         <>
@@ -25,7 +23,7 @@ const entrantsPage = () => {
             </PageHeader>
 
             <PageBody>
-                <EntrantList items={entrants}/>
+                <EntrantList items={entrantsLoadable.contents}/>
             </PageBody>
         </>
     )

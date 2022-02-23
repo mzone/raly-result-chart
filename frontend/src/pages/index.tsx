@@ -1,13 +1,12 @@
 import PageHeader from "../parts/PageHeader";
-import Link from 'next/link'
 import PageBody from "../parts/PageBody";
 import SSList from "../parts/SSList";
-import {useRecoilValue} from "recoil";
+import {useRecoilValueLoadable} from "recoil";
 import SpecialStages from "../states/specialStages";
 
 const index = () => {
 
-    const specialStages = useRecoilValue(SpecialStages);
+    const specialStages = useRecoilValueLoadable(SpecialStages);
 
     return (
         <>
@@ -23,7 +22,7 @@ const index = () => {
             </PageHeader>
 
             <PageBody>
-                <SSList items={specialStages}/>
+                <SSList items={specialStages.contents}/>
             </PageBody>
         </>
     )
