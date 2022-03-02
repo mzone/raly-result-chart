@@ -1,11 +1,27 @@
 .wrap {
-  background: linear-gradient(rgb(255 255 255), rgb(223 224 230));
-  border: 1px solid #000;
+  box-shadow: 0 0 10px #0002;
   left: 0;
   margin: 0 auto;
-  max-width: 540px;
+  max-width: $wrap-max-width;
   min-height: 100vh;
   position: relative;
   top: 0;
   width: 100%;
+
+  &::after {
+    background: linear-gradient($snow, rgb(223 224 230));
+    content: '';
+    height: 100%;
+    left: 50%;
+    margin-left: -50%;
+    max-width: $wrap-max-width;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+
+    @media screen and (min-width: $wrap-max-width) {
+      margin-left: $wrap-max-width * -0.5;
+    }
+  }
 }

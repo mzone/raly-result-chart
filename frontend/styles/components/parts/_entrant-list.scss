@@ -1,0 +1,97 @@
+.entrant-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+
+.entrant-list-item {
+  align-items: center;
+  background-color: $white;
+  border: 1px solid $white-smoke-darker;
+  border-radius: 4px;
+  display: flex;
+  margin-bottom: 0.1rem;
+
+  &__race-bib {
+    padding: 0.75rem;
+  }
+}
+
+.entrant-list-item-body {
+  flex-grow: 1;
+  padding: 0.25rem 0.25rem 0.25rem 0;
+
+  &__team-name {
+    font-size: 70%;
+  }
+
+  &__car-name {
+    border-bottom: 1px solid $white-smoke-darker;
+    font-size: 75%;
+    font-weight: bold;
+  }
+
+  &__members {
+    overflow: hidden;
+    padding: 0.1rem 0;
+
+    > dl {
+      align-items: flex-end;
+      display: flex;
+      float: left;
+      justify-content: flex-start;
+      line-height: 1.4;
+      margin: 0;
+      padding: 0;
+
+      > dt {
+        color: $text-color-sub;
+        font-size: 10px;
+        margin: 0;
+        padding: 0 0.25rem 0 0;
+      }
+
+      > dd {
+        font-size: 85%;
+        font-weight: bold;
+        margin: 0 1rem 0 0;
+        padding: 0;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &__car-info {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    left: 0;
+    padding: 0 0.25rem 0 0;
+    position: relative;
+    top: 0;
+    z-index: 1;
+
+    &::after {
+      border-bottom: 10px solid $white-smoke-darker;
+      border-left: 10px solid transparent;
+      border-right: 10px solid $white-smoke-darker;
+      border-top: 10px solid transparent;
+      bottom: 0;
+      content: '';
+      position: absolute;
+      right: 0;
+      z-index: -1;
+    }
+
+    &__car-model {
+      color: $light-blue;
+      font-size: 11px;
+      text-align: right;
+    }
+
+    &__group {
+      font-size: 10px;
+      margin-left: 0.25rem;
+    }
+  }
+}

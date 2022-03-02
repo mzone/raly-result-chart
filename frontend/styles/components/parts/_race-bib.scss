@@ -1,0 +1,33 @@
+.race-bib {
+  background-color: $white;
+  border: 1px solid $gray-snow;
+  border-radius: 6px;
+  box-shadow: 0 1px 1px $gray-snow;
+  height: 45px;
+  left: 0;
+  position: relative;
+  text-align: center;
+  top: 0;
+  width: 46px;
+
+  &__class-name {
+    background-color: $gray-snow;
+    border-radius: 6px 6px 0 0;
+    font-size: 75%;
+    line-height: 1.1;
+    overflow: hidden;
+    padding: 0.25em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__no {
+    font-size: 110%;
+    font-weight: bold;
+    line-height: 1.1;
+    overflow: hidden;
+    padding: 0.2em 0.1em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

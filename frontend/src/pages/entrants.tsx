@@ -1,26 +1,20 @@
 import PageHeader from "../parts/PageHeader";
 import PageBody from "../parts/PageBody";
 import EntrantList from "../parts/EntrantList";
-import {useRecoilValueLoadable} from "recoil";
+import {useRecoilValue, useRecoilValueLoadable} from "recoil";
 import Entrants from "../states/entrants";
+import Competition from "../states/competition";
 
 
 const entrantsPage = () => {
+
+    const globalTitle = useRecoilValue(Competition);
 
     const entrantsLoadable = useRecoilValueLoadable(Entrants);
 
     return (
         <>
-            <PageHeader>
-                {{
-                    center: (
-                        <>
-                            <div>TOYOTA GAZOO Rally Challenge 2017 Rd7 takaoka</div>
-                            <div>2017.08.29 - 08.30</div>
-                        </>
-                    )
-                }}
-            </PageHeader>
+            <PageHeader global_title={globalTitle} page_title="ENTRANT"/>
 
             <PageBody>
                 <EntrantList items={entrantsLoadable.contents}/>

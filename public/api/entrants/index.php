@@ -17,14 +17,14 @@ function getEntrantCsvData($csvFilePath)
     if (($handle = fopen($csvFilePath, "r")) !== false) {
         // 1行ずつfgetcsv()関数を使って読み込む
         while (($data = fgetcsv($handle))) {
-            list($no, $className, $drName, $coDrName, $carName, $enginType, $group, $teamName) = $data;
+            list($no, $className, $drName, $coDrName, $carName, $carModel, $group, $teamName) = $data;
             $result[] = array(
               'no' => $no,
               'className' => $className,
               'drName' => $drName,
               'coDrName' => $coDrName,
               'carName' => $carName,
-              'enginType' => $enginType,
+              'carModel' => $carModel,
               'group' => $group,
               'teamName' => $teamName,
             );

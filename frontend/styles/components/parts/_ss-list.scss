@@ -1,0 +1,90 @@
+.ss-list {
+  list-style: none;
+  padding: 0;
+
+  > li > ul {
+    list-style: none;
+    padding: 0;
+
+    > li {
+      left: 0;
+      position: relative;
+      top: 0;
+
+      &::after {
+        background-color: $white-smoke;
+        bottom: 0;
+        content: '';
+        height: 1px;
+        left: 0.5rem;
+        position: absolute;
+        right: 0.5rem;
+      }
+    }
+  }
+}
+
+.ss-list-day-item {
+  &__day-label {
+    color: $light-blue;
+    left: 0;
+    line-height: 1.1;
+    padding: 1rem 1rem 0.5rem;
+    position: relative;
+    top: 0;
+
+    &::after {
+      background-color: $light-blue;
+      bottom: 0;
+      box-shadow: 0 0 5px $light-blue;
+      content: '';
+      height: 1px;
+      left: 0.5rem;
+      position: absolute;
+      right: 0.5rem;
+    }
+  }
+}
+
+.ss-list-item {
+  align-items: center;
+  color: $text-color-default;
+  cursor: pointer;
+  display: flex;
+  padding: 1rem;
+  text-decoration: none;
+
+  &__no {
+    font-weight: bold;
+    white-space: nowrap;
+    width: 20%;
+  }
+
+  &__name {
+    flex: 1;
+    font-size: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__dist {
+    font-size: 90%;
+    text-align: right;
+    white-space: nowrap;
+    width: 30%;
+
+    &__unit {
+      color: $text-color-sub;
+      font-size: 85%;
+      margin-left: 0.25rem;
+    }
+  }
+
+  &__icon {
+    color: $light-blue;
+    font-size: 75%;
+    text-align: right;
+    width: 1.5rem;
+  }
+}

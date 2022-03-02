@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Noto+Sans+JP:wght@400;700&display=swap');
+
+.text-default {
+  color: $text-color-default;
+}
+
+.text-sub {
+  color: $text-color-sub;
+}
+
+.text-large {
+  font-size: 110%;
+}
+
+.text-small {
+  font-size: 75%;
+}
+
+.text-x-small {
+  font-size: 65%;
+}

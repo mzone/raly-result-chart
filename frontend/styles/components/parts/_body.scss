@@ -1,4 +1,20 @@
 body {
-  background-color: var(--r-lightGray);
-  color: var(--r-blureBlack);
+  background-color: $white-smoke;
+  color: $blue-black;
+  font-family: Montserrat, 'Noto Sans JP', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  word-break: break-all;
+
+  a {
+    color: $light-blue;
+    text-decoration: none;
+    transition: color 0.3s;
+
+    &:hover {
+      color: $light-blue;
+    }
+  }
 }

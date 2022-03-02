@@ -1,25 +1,19 @@
 import PageHeader from "../parts/PageHeader";
 import PageBody from "../parts/PageBody";
 import SSList from "../parts/SSList";
-import {useRecoilValueLoadable} from "recoil";
+import {useRecoilValue, useRecoilValueLoadable} from "recoil";
 import SpecialStages from "../states/specialStages";
+import Competition from "../states/competition";
 
 const index = () => {
 
+    const globalTitle = useRecoilValue(Competition);
     const specialStages = useRecoilValueLoadable(SpecialStages);
+
 
     return (
         <>
-            <PageHeader>
-                {{
-                    center: (
-                        <>
-                            <div>TOYOTA GAZOO Rally Challenge 2017 Rd7 takaoka</div>
-                            <div>2017.08.29 - 08.30</div>
-                        </>
-                    )
-                }}
-            </PageHeader>
+            <PageHeader global_title={globalTitle} page_title="TIME"/>
 
             <PageBody>
                 <SSList items={specialStages.contents}/>

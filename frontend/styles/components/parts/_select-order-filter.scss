@@ -1,0 +1,28 @@
+.select-order-filter {
+  display: block;
+  left: 0;
+  position: relative;
+  top: 0;
+  z-index: 1;
+
+  &__icon {
+    color: $light-blue;
+    left: 0.5rem;
+    line-height: 1.2rem;
+    margin-top: -0.5em;
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+  }
+
+  > select {
+    appearance: none;
+    border: 1px solid $light-blue;
+    border-radius: 4px;
+    color: $text-color-default;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    padding: 0.33rem;
+    padding-left: 2em;
+  }
+}

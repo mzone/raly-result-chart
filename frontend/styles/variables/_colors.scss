@@ -1,16 +1,13 @@
-$gainsboro: #DCDCDC; // rgb(220, 220, 220);
-$lightGray: #D3D3D3; // rgb(211, 211, 211);
-$silver: #C0C0C0; // rgb(192, 192, 192);
-$darkGray: #A9A9A9; // rgb(169, 169, 169);
-$gray: #808080; // rgb(128, 128, 128);
-$dimGray: #696969; // rgb(105, 105, 105);
-$lightSlateGray: #778899; // rgb(119, 136, 153);
-$slateGray: #708090; // rgb(112, 128, 144);
-$darkSlateGray: #2F4F4F; // rgb(47, 79, 79);
-$black: #000000; // rgb(0, 0, 0);
+$white: #fff;
+$snow: #f9f9f9;
+$gray-snow: #eaecf2;
+$white-smoke: #f2f2f2;
+$white-smoke-darker: #efefef;
 
-$blueBlack: #142b31; // rgb(0, 0, 0);
+$light-slate-gray: #7d808c;
+$gray40: #666;
+$blue-black: #142b31;
+$light-blue: #29abe2;
 
-
-//text colors
-$text-color-default: $blueBlack;
+$text-color-default: $blue-black;
+$text-color-sub: $light-slate-gray;

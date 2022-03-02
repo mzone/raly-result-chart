@@ -9,7 +9,6 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
 
-
 type NextPageWithLayout = NextPage & {
     getLayout?: (page: ReactElement) => ReactNode
 }
@@ -21,7 +20,7 @@ type AppPropsWithLayout = AppProps & {
 const app = ({Component, pageProps}: AppPropsWithLayout) => {
     // Use the layout defined at the page level, if available
     //const getLayout = Component.getLayout ?? ((page) => page)
-    const getLayout = Component.getLayout ?? LayoutDefault
+    const getLayout = Component.getLayout ?? LayoutDefault;
 
     return (
         <RecoilRoot>
