@@ -9,7 +9,7 @@ const ToggleSwitch = ({items, current_key, toggle_function}) => {
         }
     }
     return (
-        <div className="toggle-switch bg-global-blur">
+        <div className="toggle-switch">
             {items.map((item) => {
                 const className = "toggle-switch__btn" + ((current_key === item.key) ? " toggle-switch__btn--active" : "");
                 return (

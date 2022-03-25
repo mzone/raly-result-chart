@@ -4,9 +4,17 @@
 }
 
 .ss-time-list-item {
+  cursor: pointer;
   display: flex;
   margin-bottom: 0.2rem;
   padding: 0 0.5rem;
+
+  &:hover {
+    .ss-time-list-item__pos,
+    .ss-time-list-item__body {
+      background-color: rgba($white, 0.7);
+    }
+  }
 
   &__pos {
     align-items: center;
@@ -20,6 +28,7 @@
     line-height: 1.1;
     position: relative;
     top: 0;
+    transition: background-color 0.2s;
     width: 56px;
 
     .pos {
@@ -61,6 +70,7 @@
     flex-grow: 1;
     margin-left: 0.1rem;
     padding: 0.5rem;
+    transition: background-color 0.2s;
 
     &__race-bib-wrap {
       margin-right: 0.5rem;
@@ -83,10 +93,10 @@
         color: #000;
         font-size: 130%;
         font-weight: bold;
-        line-height: 1.1;
-        white-space: nowrap;
         letter-spacing: 1pt;
+        line-height: 1.1;
         text-indent: -1pt;
+        white-space: nowrap;
       }
 
       .diff {

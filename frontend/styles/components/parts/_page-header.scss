@@ -8,8 +8,8 @@
 
 .page-header {
   align-items: center;
-  backdrop-filter: blur(12px);
-  background: rgba($snow, 0.5);
+  backdrop-filter: blur(5px);
+  background: rgba($white, 0.75);
   display: flex;
   height: $page-header-height;
   justify-content: space-between;
@@ -42,13 +42,13 @@
       letter-spacing: 1pt;
       line-height: 1.2;
       margin: 0;
+      overflow: hidden;
       padding: 0;
       position: relative;
       text-indent: -1pt;
+      text-overflow: ellipsis;
       top: 0;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
       width: 100%;
 
       &::after {
