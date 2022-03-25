@@ -8,12 +8,13 @@ import SpecialStages from "../../states/specialStages";
 import {useEffect, useState} from "react";
 import SSTimeList from "../../parts/SSTimeList";
 import Competition from "../../states/competition";
-import axios from "axios";
+import axios from "../../utils/axios";
 import ToggleSwitch from "../../parts/ToggleSwitch";
 import BtnPageBack from "../../parts/BtnPageBack";
 import SelectFilter from "../../parts/SelectFilter";
 
-const ssTimeId: NextPage = (res) => {
+// @ts-ignore
+const ssTimeId: NextPage = ({ssNo}) => {
 
     const TOGGLE_SWITCH_DIVISION_STAGE = '1';
     const TOGGLE_SWITCH_DIVISION_OVER_ALL = '2';
@@ -28,26 +29,43 @@ const ssTimeId: NextPage = (res) => {
         }
     ];
 
-    const router = useRouter();
-    const [ssNo, setSsNo] = useState<number>(1);
     const [results, setResults] = useState<Array<any>>([]);
+    const [resultCallbackCount, setResultCallbackCount] = useState<number>(0);
     const [overallResults, setOverallResults] = useState<Array<any>>([]);
+    const [overallResultCallbackCount, setOverallResultCallbackCount] = useState<number>(0);
+
     const [resultDivision, setResultDivision] = useState<string>(TOGGLE_SWITCH_DIVISION_STAGE);
     const [selectedClassFilter, setSelectedClassFilter] = useState<string>(TOGGLE_SWITCH_DIVISION_STAGE);
 
     const globalTitle = useRecoilValue(Competition);
-    useEffect(() => {
-        if (router.asPath !== router.route) {
-            setSsNo(Number(router.query.id));
-        }
-        const resultsRow = getSSTime(ssNo);
-        setResults([...Array(100)].map((_, i) => i));
-        setOverallResults([...Array(100)].map((_, i) => i));
 
-    }, [router]);
+    const getSSData = async (ssNo) => {
+        if (!ssNo || isNaN(ssNo)) {
+            throw Error();
+        }
+        try {
+            const res = await axios.get(`/api/results?cname=rallyTango2021&ssNo=${ssNo}`);
+            const {m, ms} = res.data;
+            setResults(ms);
+            setOverallResults(m);
+
+            setResultCallbackCount(resultCallbackCount + 1);
+            setOverallResultCallbackCount(overallResultCallbackCount + 1);
+        } catch (e) {
+
+            // TODO アラートダイアログ
+        }
+    }
+
+    useEffect(() => {
+        getSSData(ssNo);
+    }, [ssNo]);
 
     const entrantsLoadable = useRecoilValueLoadable(Entrants);
-    const specialStages = useRecoilValueLoadable(SpecialStages);
+    const specialStagesLoadable = useRecoilValueLoadable(SpecialStages);
+    const [SSList, setSSList] = useState<Array<any>>([]);
+    const [SSData, setSSData] = useState<Object>({});
+    const [entrants, setEntrants] = useState<Array<any>>([]);
     const [classList, setClassList] = useState<Array<any>>([]);
     const [selectedClass, setSelectedClass] = useState<string>('ALL');
 
@@ -57,10 +75,32 @@ const ssTimeId: NextPage = (res) => {
         }
         const items = typeof entrantsLoadable.contents === 'object' ? entrantsLoadable.contents : [];
         const classList = Array.from(new Set(items.map((item) => item.className)));
+
+        setEntrants(items);
         setClassList(classList.map((item) => {
             return {'key': item, 'value': item}
         }));
     }, [entrantsLoadable]);
+
+    useEffect(() => {
+        if (specialStagesLoadable.state !== "hasValue") {
+            return;
+        }
+        const result = typeof specialStagesLoadable.contents === 'object' ? specialStagesLoadable.contents : [];
+
+        try{
+        const items = [...result[0], ...result[1]];
+        setSSList(items);
+        setSSData(items.find((ss) => ss.no === ssNo * 1));
+        } catch (e) {
+            // TODO エラーダイアログ
+        }
+
+        return () => {
+            setSSList([]);
+            setSSData({});
+        }
+    }, [specialStagesLoadable]);
 
     const toggleResultPage = (division) => {
         setResultDivision(division);
@@ -71,21 +111,9 @@ const ssTimeId: NextPage = (res) => {
         'left': toggleSwitchItems.map((item) => item.key).indexOf(resultDivision) * -100 + '%'
     };
 
-
-    useEffect(() => {
-        async () => {
-            try {
-                const res = await axios.get('http://localhost:8888/api/entrants/?cname=rallyTango2021');
-                return res.data.entrants;
-            } catch (error) {
-                throw error;
-            }
-        }
-    }, [entrantsLoadable]);
-
     return (
         <>
-            <PageHeader global_title={globalTitle} page_title="SS1 Tsunotsuki1">
+            <PageHeader global_title={globalTitle} page_title={`SS${SSData?.no} ${SSData?.name}`}>
                 {
                     {
                         'left': (
@@ -115,10 +143,15 @@ const ssTimeId: NextPage = (res) => {
                 <div className="result-list-wrap">
                     <ul className="result-list" style={resultListStyle}>
                         <li className="stage">
-                            <SSTimeList items={results}/>
+                            <SSTimeList items={results.map((result) => {
+                                return {...result, entrant: entrants.find((entrant) => entrant.no === result.car_no)}
+                            })}/>
                         </li>
                         <li className="over-all">
-                            <SSTimeList items={overallResults}/>
+
+                            <SSTimeList items={overallResults.map((result) => {
+                                return {...result, entrant: entrants.find((entrant) => entrant.no === result.car_no)}
+                            })}/>
                         </li>
                     </ul>
                 </div>
@@ -127,13 +160,10 @@ const ssTimeId: NextPage = (res) => {
     );
 }
 
-const getSSTime = async (id) => {
-    try {
-        const res = await axios.get('http://localhost:8888/api/entrants/?cname=rallyTango2021');
-        return res.data.entrants;
-    } catch (error) {
-        throw error;
-    }
+ssTimeId.getInitialProps = ({query}) => {
+    const {id} = query;
+    return {ssNo: id};
 }
+
 
 export default ssTimeId;

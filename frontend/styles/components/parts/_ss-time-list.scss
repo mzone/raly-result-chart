@@ -5,12 +5,12 @@
 
 .ss-time-list-item {
   display: flex;
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.2rem;
   padding: 0 0.5rem;
 
   &__pos {
     align-items: center;
-    background-color: $white;
+    background-color: rgba($white, 1);
     border: 1px solid $white-smoke;
     border-radius: 4px 0 0 4px;
     color: $light-blue;
@@ -54,7 +54,7 @@
 
   &__body {
     align-items: center;
-    background-color: $white;
+    background-color: rgba($white, 1);
     border: 1px solid $white-smoke;
     border-radius: 0 4px 4px 0;
     display: flex;
@@ -81,10 +81,12 @@
 
       .time {
         color: #000;
-        font-size: 105%;
+        font-size: 130%;
         font-weight: bold;
         line-height: 1.1;
         white-space: nowrap;
+        letter-spacing: 1pt;
+        text-indent: -1pt;
       }
 
       .diff {

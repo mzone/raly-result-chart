@@ -32,12 +32,12 @@
       color: $text-color-sub;
       font-size: 0.85%;
       line-height: 1.2;
-      margin: 0 0 0.25rem;
+      margin: 0 0 0.3rem;
       padding: 0;
     }
 
     &__page-title {
-      font-size: 1.2em;
+      font-size: 1.1em;
       left: 0;
       letter-spacing: 1pt;
       line-height: 1.2;
@@ -46,6 +46,10 @@
       position: relative;
       text-indent: -1pt;
       top: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
 
       &::after {
         background-color: $light-blue;

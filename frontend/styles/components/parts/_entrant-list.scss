@@ -6,7 +6,7 @@
 
 .entrant-list-item {
   align-items: center;
-  background-color: $white;
+  background-color: rgba($white, 1);
   border: 1px solid $white-smoke-darker;
   border-radius: 4px;
   display: flex;
@@ -27,8 +27,7 @@
 
   &__car-name {
     border-bottom: 1px solid $white-smoke-darker;
-    font-size: 75%;
-    font-weight: bold;
+    font-size: 70%;
   }
 
   &__members {

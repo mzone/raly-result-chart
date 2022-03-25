@@ -1,58 +1,76 @@
 <?php
+
+define('HTML_SLICE_LINES', 16);
+define('FILE_DIR', dirname(__FILE__) . '/../../data/rallyTango2021');
+define('RESULT_PAGE_BASE_URL', 'https://trics.web.fc2.com/21/j/');
+define('LAST_SS_NO', 12);
+
+
+header("Content-type: text/html; charset=SJIS");
+
+
 $key = isset($_GET['key']) ? htmlspecialchars($_GET['key'], ENT_QUOTES) : null;
 
 if ( ! $key) {
     throw new ErrorException("取得できませんでした key param not found");
 }
 
-define('FILE_DIR', dirname(__FILE__) . '/../../data/rallyTango2021');
-define('RESULT_PAGE_BASE_URL', 'https://trics.web.fc2.com/21/j/');
 
-function makePageUrlList($lastSSNo)
+function makePageUrlList()
 {
-    $list = array();
+    $list = [];
 
-    for ($ssNo = 1; $ssNo < $lastSSNo + 1; $ssNo++) {
-        $list[] = array("SS{$ssNo}ms", RESULT_PAGE_BASE_URL . "SS{$ssNo}ms.htm");
-        $list[] = array("SS{$ssNo}m", RESULT_PAGE_BASE_URL . "SS{$ssNo}m.htm");
+    for ($ssNo = 1; $ssNo <= LAST_SS_NO; $ssNo++) {
+        $list[] = ["SS{$ssNo}.json", RESULT_PAGE_BASE_URL . "SS{$ssNo}a.htm"];
     }
-
     return $list;
 }
 
 function saveJsonData($fileName, $url)
 {
     $html = file_get_contents($url);
-    $html = mb_convert_encoding($html, "HTML-ENTITIES", 'SJIS');
-    $html = str_replace(array("\r", "\n"), "\n", $html);
-    $htmlLines = explode("\n", $html);
+    $html = str_replace(array("\r\n", "\r", "\n"), '', $html);
+    $pattern = '@<TD.*?>(.*?)</TD>@';
+    preg_match_all($pattern, $html, $matches);
+    $data = array_slice($matches[1], HTML_SLICE_LINES);
+    $data = array_map(function ($line) {
+        return str_replace(['<FONT SIZE=2>'], '', $line);
+    }, $data);
+    $chunks = array_chunk($data, 7);
+    $formattedData = array_map(function ($line) {
+        return ['car_no' => trim($line[1]), 'time' => $line[4], 'sec' => hour_to_sec($line[4])];
+    }, $chunks);
 
-    $data = array();
-    $hideStartLine = null;
-    if ($htmlLines) {
-        foreach ($htmlLines as $key => $line) {
-            if ($line == '<BR><A href="http://trics.fiw-web.net/trics/m/">TRICS</A>') {
-                $hideStartLine = $key;
-            }
+    $sections = [];
+    $overalls = [];
 
-            if ($key > 6 && is_null($hideStartLine) || $key < $hideStartLine) {
-                list($nameData, $time) = explode("<BR>", $line);
-                $params = explode(" ", $nameData);
-                $carNo = current($params);
-                $time = preg_replace("/( |　|&#12288;)/", "", $time );
-                $data[] = array('car_no' => trim($carNo), 'time' => $time, 'sec' => hour_to_sec($time));
-            }
+    foreach ($formattedData as $key => $val) {
+        if ($key % 2 === 0) {
+            $sections[] = $val;
+        } else {
+            $overalls[] = $val;
         }
     }
 
-    file_put_contents(FILE_DIR . "/{$fileName}.json", json_encode($data));
+    echo json_encode($sections);
+    echo json_encode($overalls);
+
+    $fileData = [
+      'sections' => $sections,
+      'overalls' => $overalls,
+    ];
+
+    file_put_contents(FILE_DIR . "/{$fileName}", json_encode($fileData));
 }
 
 function hour_to_sec($str)
 {
+    if ( ! $str || $str == '-') {
+        return null;
+    }
     $h = 0;
     $t = explode(":", $str);
-    if (count($t) > 2 ) {
+    if (count($t) > 2) {
         list($h, $m, $s) = $t;
     } else {
         list($m, $s) = $t;
@@ -63,15 +81,15 @@ function hour_to_sec($str)
     return ($h * 60 * 60) + ($m * 60) + $s;
 }
 
-function makeResultDataFiles($lastSSNo)
+function makeResultDataFiles()
 {
-    $list = makePageUrlList($lastSSNo);
+    $list = makePageUrlList();
     foreach ($list as $line) {
         saveJsonData($line[0], $line[1]);
         echo "Done {$line[0]} <BR>";
     }
 }
 
-makeResultDataFiles(12);
+makeResultDataFiles();
 
 
