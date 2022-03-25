@@ -13,8 +13,8 @@ const SSTimeListItem = (item, key) => {
     return (
         <li className="ss-time-list-item" key={`${item.car_no}_${key}`}>
             <div className="ss-time-list-item__pos">
-                <div className="pos">1</div>
-                <div className="class-pos">1</div>
+                <div className="pos">{item.pos !== 0 ? item.pos : '-'}</div>
+                <div className="class-pos">{item.class_pos}</div>
             </div>
             <div className="ss-time-list-item__body">
                 <div className="ss-time-list-item__body__race-bib-wrap">

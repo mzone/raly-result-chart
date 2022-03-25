@@ -10,8 +10,8 @@
 
   &__pos {
     align-items: center;
-    background-color: rgba($white, 1);
-    border: 1px solid $white-smoke;
+    background-color: rgba($white, 0.05);
+    border: 1px solid $white;
     border-radius: 4px 0 0 4px;
     color: $light-blue;
     display: flex;
@@ -39,9 +39,9 @@
       z-index: 1;
 
       &::after {
-        border-bottom: 10px solid $white-smoke-darker;
+        border-bottom: 10px solid rgba($white, 0.9);
         border-left: 10px solid transparent;
-        border-right: 10px solid $white-smoke-darker;
+        border-right: 10px solid rgba($white, 0.9);
         border-top: 10px solid transparent;
         bottom: 1px;
         content: '';
@@ -54,8 +54,8 @@
 
   &__body {
     align-items: center;
-    background-color: rgba($white, 1);
-    border: 1px solid $white-smoke;
+    background-color: rgba($white, 0.05);
+    border: 1px solid $white;
     border-radius: 0 4px 4px 0;
     display: flex;
     flex-grow: 1;

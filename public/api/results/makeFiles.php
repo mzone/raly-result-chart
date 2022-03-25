@@ -38,13 +38,24 @@ function saveJsonData($fileName, $url)
     }, $data);
     $chunks = array_chunk($data, 7);
     $formattedData = array_map(function ($line) {
-        return ['car_no' => trim($line[1]), 'time' => $line[4], 'sec' => hour_to_sec($line[4])];
+        return [
+          'pos' => (int) $line[0],
+          'car_no' => trim($line[1]),
+          'time' => $line[4],
+          'sec' => hour_to_sec($line[4]),
+          'class_pos' => (int) $line[5],
+        ];
     }, $chunks);
 
     $sections = [];
     $overalls = [];
 
     foreach ($formattedData as $key => $val) {
+
+        if($val['car_no'] === '-') {
+            continue;
+        }
+
         if ($key % 2 === 0) {
             $sections[] = $val;
         } else {
@@ -52,8 +63,8 @@ function saveJsonData($fileName, $url)
         }
     }
 
-    echo json_encode($sections);
-    echo json_encode($overalls);
+//    echo json_encode($sections);
+//    echo json_encode($overalls);
 
     $fileData = [
       'sections' => $sections,

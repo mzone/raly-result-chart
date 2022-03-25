@@ -45,9 +45,9 @@ const ssTimeId: NextPage = ({ssNo}) => {
         }
         try {
             const res = await axios.get(`/api/results?cname=rallyTango2021&ssNo=${ssNo}`);
-            const {m, ms} = res.data;
-            setResults(ms);
-            setOverallResults(m);
+            const {sections, overalls} = res.data;
+            setResults(sections);
+            setOverallResults(overalls);
 
             setResultCallbackCount(resultCallbackCount + 1);
             setOverallResultCallbackCount(overallResultCallbackCount + 1);

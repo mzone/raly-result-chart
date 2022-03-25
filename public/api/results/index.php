@@ -8,18 +8,13 @@ if ( ! $competitionName) {
 }
 
 
-$filePath = __DIR__ . "/../../data/{$competitionName}/SS{$ssNo}m.json";
-$filePath2 = __DIR__ . "/../../data/{$competitionName}/SS{$ssNo}ms.json";
-
-function getData($filePath)
-{
-    $json = file_get_contents($filePath);
-    return json_decode($json, true);
-}
+$filePath = __DIR__ . "/../../data/{$competitionName}/SS{$ssNo}.json";
+$json = file_get_contents($filePath);
+$data = json_decode($json, true);
 
 header("Content-Type: application/json; charset=utf-8");
 header('Access-Control-Allow-Origin: *');
-echo json_encode(array(
-  'm' => getData($filePath),
-  'ms' => getData($filePath2)
-));
+echo json_encode($data);
+
+die();
+
