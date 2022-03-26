@@ -29,7 +29,7 @@ function makePageUrlList()
 function saveJsonData($fileName, $url)
 {
     $html = file_get_contents($url);
-    $html = str_replace(array("\r\n", "\r", "\n"), '', $html);
+    $html = str_replace(["\r\n", "\r", "\n"], '', $html);
     $pattern = '@<TD.*?>(.*?)</TD>@';
     preg_match_all($pattern, $html, $matches);
     $data = array_slice($matches[1], HTML_SLICE_LINES);
@@ -39,11 +39,11 @@ function saveJsonData($fileName, $url)
     $chunks = array_chunk($data, 7);
     $formattedData = array_map(function ($line) {
         return [
-          'pos' => (int) $line[0],
+          'pos' => (int) str_replace(["="], '', $line[0]),
           'car_no' => trim($line[1]),
           'time' => $line[4],
           'sec' => hour_to_sec($line[4]),
-          'class_pos' => (int) $line[5],
+          'class_pos' => (int) str_replace(["="], '', $line[5]),
         ];
     }, $chunks);
 
@@ -51,8 +51,7 @@ function saveJsonData($fileName, $url)
     $overalls = [];
 
     foreach ($formattedData as $key => $val) {
-
-        if($val['car_no'] === '-') {
+        if ($val['car_no'] === '-') {
             continue;
         }
 
@@ -63,8 +62,8 @@ function saveJsonData($fileName, $url)
         }
     }
 
-//    echo json_encode($sections);
-//    echo json_encode($overalls);
+    //    echo json_encode($sections);
+    //    echo json_encode($overalls);
 
     $fileData = [
       'sections' => $sections,
