@@ -1,15 +1,5 @@
 .page-body {
   &--times {
-    .sub-header {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem;
-      position: sticky;
-      top: $page-header-height;
-      z-index: 10;
-    }
-
     .toggle-switch-wrap {
       flex-grow: 1;
       padding-right: 1rem;

@@ -1,4 +1,13 @@
-$wrap-max-width : 370px;
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1024px,
+  xxl: 1200px
+);
+
+$wrap-max-width : map-get($grid-breakpoints, 'sm');
 
 $page-header-height: 60px;
 

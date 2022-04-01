@@ -2,7 +2,7 @@
   box-shadow: 0 0 10px #0002;
   left: 0;
   margin: 0 auto;
-  max-width: $wrap-max-width;
+  max-width: 100%;
   min-height: 100vh;
   position: relative;
   top: 0;
@@ -12,16 +12,48 @@
     background: linear-gradient($snow, rgb(223 224 230));
     content: '';
     height: 100%;
-    left: 50%;
-    margin-left: -50%;
-    max-width: $wrap-max-width;
+    left: 0;
+    margin-left: 0;
+    max-width: 100%;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: -1;
+  }
 
-    @media screen and (min-width: $wrap-max-width) {
-      margin-left: $wrap-max-width * -0.5;
+  @media screen and (min-width: map-get($grid-breakpoints, 'sm')) {
+    max-width: map-get($grid-breakpoints, 'sm');
+
+    &::after {
+      left: 50%;
+      margin-left: map-get($grid-breakpoints, 'sm') * -0.5;
+    }
+  }
+
+  @media screen and (min-width: map-get($grid-breakpoints, 'md')) {
+    max-width: map-get($grid-breakpoints, 'md');
+
+    &::after {
+      left: 50%;
+      margin-left: map-get($grid-breakpoints, 'md') * -0.5;
+    }
+  }
+
+  @media screen and (min-width: map-get($grid-breakpoints, 'xl')) {
+    max-width: map-get($grid-breakpoints, 'xl');
+
+    &::after {
+      left: 50%;
+      margin-left: map-get($grid-breakpoints, 'xl') * -0.5;
+    }
+  }
+
+  @media screen and (min-width: map-get($grid-breakpoints, 'xxl')) {
+    max-width: 100%;
+
+    &::after {
+      left: 0;
+      margin-left: 0;
     }
   }
 }

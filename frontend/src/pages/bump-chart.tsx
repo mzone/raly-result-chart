@@ -7,6 +7,9 @@ import Entrants from "../states/entrants";
 import {useEffect, useState} from "react";
 import SpecialStages from "../states/specialStages";
 import axios from "../utils/axios";
+import ToggleSwitch from "../parts/ToggleSwitch";
+import SelectFilter from "../parts/SelectFilter";
+import PageBodyHeader from "../parts/PageBodyHeader";
 
 
 const bumpChart = () => {
@@ -17,6 +20,7 @@ const bumpChart = () => {
 
     const entrantsLoadable = useRecoilValueLoadable(Entrants);
     const specialStagesLoadable = useRecoilValueLoadable(SpecialStages);
+    const [selectedClass, setSelectedClass] = useState<string>('ALL');
     const [entrants, setEntrants] = useState<Array<any>>([]);
     const [classList, setClassList] = useState<Array<any>>([]);
     const [SSList, setSSList] = useState<Array<any>>([]);
@@ -68,7 +72,7 @@ const bumpChart = () => {
         }
     }
 
-    const data = entrants.map((item, key) => {
+    const data = entrants.filter((item) => selectedClass === 'ALL' ? true : item.className === selectedClass).map((item, key) => {
         const poses = posData.filter((ssPos)=>ssPos.car_no === item.no);
         return {
             id: `${item.no} ${item.drName}`,
@@ -82,62 +86,6 @@ const bumpChart = () => {
         }
     });
 
-    // const data = [
-    //     {
-    //         id: "奴田原",
-    //         data: [
-    //             {
-    //                 x: 1,
-    //                 y: 7
-    //             },
-    //             {
-    //                 x: 2,
-    //                 y: 11
-    //             },
-    //             {
-    //                 x: 3,
-    //                 y: 2
-    //             },
-    //         ]
-    //     },
-    //     {
-    //         id: "2",
-    //         data: [
-    //             {
-    //                 x: 1,
-    //                 y: 6
-    //             },
-    //             {
-    //                 x: 2,
-    //                 y: 9
-    //             },
-    //             {
-    //                 x: 3,
-    //                 y: 7
-    //             },
-    //         ]
-    //     },
-    //
-    //     {
-    //         id: "3",
-    //         data: [
-    //             {
-    //                 x: 1,
-    //                 y: 2
-    //             },
-    //             {
-    //                 x: 2,
-    //                 y: 3
-    //             },
-    //
-    //             {
-    //                 x: 3,
-    //                 y: null
-    //             },
-    //         ]
-    //     },
-    // ];
-
     const BumpChart = dynamic(() => import("../parts/BumpChart"), {
         ssr: false
     })
@@ -146,7 +94,19 @@ const bumpChart = () => {
         <>
             <PageHeader global_title={globalTitle} page_title="BUMP"/>
             <PageBody>
-                <div className={'bump-chart-wrap'} style={{height: entrants.length * 30 + 'px', width: ssList.length * 50 + 'px'}}>
+
+                <PageBodyHeader>
+                    <div>&nbsp;</div>
+                    <div>
+                        <form>
+                            <SelectFilter items={classList} current_key={selectedClass} change_event_function={(selectClass) => {
+                                setSelectedClass(selectClass);
+                            }}/>
+                        </form>
+                    </div>
+                </PageBodyHeader>
+
+                <div className={'bump-chart-wrap'} style={{height: entrants.length * 30 + 'px'}}>
                     <BumpChart data={data}/>
                 </div>
             </PageBody>

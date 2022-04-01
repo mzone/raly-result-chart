@@ -1,7 +1,6 @@
 import PageHeader from "../../parts/PageHeader";
 import PageBody from "../../parts/PageBody";
 import {useRecoilValue, useRecoilValueLoadable} from "recoil";
-import {useRouter} from 'next/router'
 import {NextPage} from 'next'
 import Entrants from "../../states/entrants";
 import SpecialStages from "../../states/specialStages";
@@ -12,6 +11,7 @@ import axios from "../../utils/axios";
 import ToggleSwitch from "../../parts/ToggleSwitch";
 import BtnPageBack from "../../parts/BtnPageBack";
 import SelectFilter from "../../parts/SelectFilter";
+import PageBodyHeader from "../../parts/PageBodyHeader";
 
 // @ts-ignore
 const ssTimeId: NextPage = ({ssNo}) => {
@@ -88,10 +88,10 @@ const ssTimeId: NextPage = ({ssNo}) => {
         }
         const result = typeof specialStagesLoadable.contents === 'object' ? specialStagesLoadable.contents : [];
 
-        try{
-        const items = [...result[0], ...result[1]];
-        setSSList(items);
-        setSSData(items.find((ss) => ss.no === ssNo * 1));
+        try {
+            const items = [...result[0], ...result[1]];
+            setSSList(items);
+            setSSData(items.find((ss) => ss.no === ssNo * 1));
         } catch (e) {
             // TODO エラーダイアログ
         }
@@ -106,11 +106,20 @@ const ssTimeId: NextPage = ({ssNo}) => {
         setResultDivision(division);
     }
 
+    const sectionList = results.map((result) => {
+        return {...result, entrant: entrants.find((entrant) => entrant.no === result.car_no)}
+    }).filter((item) => selectedClass === 'ALL' ? true : item.entrant.className === selectedClass);
+
+    const overallList = overallResults.map((result) => {
+        return {...result, entrant: entrants.find((entrant) => entrant.no === result.car_no)}
+    }).filter((item) => selectedClass === 'ALL' ? true : item.entrant.className === selectedClass);
+
 
     const resultListStyle = {
         'left': toggleSwitchItems.map((item) => item.key).indexOf(resultDivision) * -100 + '%'
     };
 
+    // @ts-ignore
     return (
         <>
             <PageHeader global_title={globalTitle} page_title={`SS${SSData?.no} ${SSData?.name}`}>
@@ -123,8 +132,7 @@ const ssTimeId: NextPage = ({ssNo}) => {
                 }
             </PageHeader>
             <PageBody page_name="times">
-
-                <div className="sub-header">
+                <PageBodyHeader>
                     <div className="toggle-switch-wrap">
                         <ToggleSwitch
                             items={toggleSwitchItems}
@@ -134,24 +142,21 @@ const ssTimeId: NextPage = ({ssNo}) => {
                     </div>
                     <div>
                         <form>
-                            <SelectFilter items={classList} current_key={selectedClass} change_event_function={() => {
-                            }}/>
+                            <SelectFilter items={classList} current_key={selectedClass}
+                                          change_event_function={(selected) => {
+                                              setSelectedClass(selected);
+                                          }}/>
                         </form>
                     </div>
-                </div>
+                </PageBodyHeader>
 
                 <div className="result-list-wrap">
                     <ul className="result-list" style={resultListStyle}>
                         <li className="stage">
-                            <SSTimeList items={results.map((result) => {
-                                return {...result, entrant: entrants.find((entrant) => entrant.no === result.car_no)}
-                            })}/>
+                            <SSTimeList items={sectionList}/>
                         </li>
                         <li className="over-all">
-
-                            <SSTimeList items={overallResults.map((result) => {
-                                return {...result, entrant: entrants.find((entrant) => entrant.no === result.car_no)}
-                            })}/>
+                            <SSTimeList items={overallList}/>
                         </li>
                     </ul>
                 </div>

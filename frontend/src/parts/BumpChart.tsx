@@ -25,15 +25,8 @@ const BumpChart = ({data}) => {
                 legendOffset: -36
             }}
             axisBottom={null}
-            axisLeft={{
-                tickSize: 1,
-                tickPadding: 5,
-                tickRotation: 0,
-                legend: null,
-                legendPosition: 'middle',
-                legendOffset: -40
-            }}
-            margin={{ top: 40, right: 140, bottom: 40, left: 30 }}
+            axisLeft={null}
+            margin={{ top: 40, right: 140, bottom: 40, left: 140 }}
             axisRight={null}
             startLabel={true}
             endLabel={true}
