@@ -30,12 +30,10 @@ const ssTimeId: NextPage = ({ssNo}) => {
     ];
 
     const [results, setResults] = useState<Array<any>>([]);
-    const [resultCallbackCount, setResultCallbackCount] = useState<number>(0);
     const [overallResults, setOverallResults] = useState<Array<any>>([]);
-    const [overallResultCallbackCount, setOverallResultCallbackCount] = useState<number>(0);
-
     const [resultDivision, setResultDivision] = useState<string>(TOGGLE_SWITCH_DIVISION_STAGE);
-    const [selectedClassFilter, setSelectedClassFilter] = useState<string>(TOGGLE_SWITCH_DIVISION_STAGE);
+    const [sectionTargetTime, setSectionTargetTime] = useState<Number>(0);
+    const [overallTargetTime, setOverallTargetTime] = useState<Number>(0);
 
     const globalTitle = useRecoilValue(Competition);
 
@@ -49,8 +47,8 @@ const ssTimeId: NextPage = ({ssNo}) => {
             setResults(sections);
             setOverallResults(overalls);
 
-            setResultCallbackCount(resultCallbackCount + 1);
-            setOverallResultCallbackCount(overallResultCallbackCount + 1);
+            setSectionTargetTime(sections[0].sec);
+            setOverallTargetTime(overalls[0].sec);
         } catch (e) {
 
             // TODO アラートダイアログ
@@ -68,7 +66,6 @@ const ssTimeId: NextPage = ({ssNo}) => {
     const [entrants, setEntrants] = useState<Array<any>>([]);
     const [classList, setClassList] = useState<Array<any>>([]);
     const [selectedClass, setSelectedClass] = useState<string>('ALL');
-
     useEffect(() => {
         if (entrantsLoadable.state !== "hasValue") {
             return;
@@ -153,10 +150,16 @@ const ssTimeId: NextPage = ({ssNo}) => {
                 <div className="result-list-wrap">
                     <ul className="result-list" style={resultListStyle}>
                         <li className="stage">
-                            <SSTimeList items={sectionList}/>
+                            <SSTimeList items={sectionList} targetTime={sectionTargetTime}
+                                        click_item_function={(item) => {
+                                            setSectionTargetTime(item.sec);
+                                        }}/>
                         </li>
                         <li className="over-all">
-                            <SSTimeList items={overallList}/>
+                            <SSTimeList items={overallList} targetTime={overallTargetTime}
+                                        click_item_function={(item) => {
+                                            setOverallTargetTime(item.sec);
+                                        }}/>
                         </li>
                     </ul>
                 </div>

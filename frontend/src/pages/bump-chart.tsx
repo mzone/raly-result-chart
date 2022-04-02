@@ -7,14 +7,11 @@ import Entrants from "../states/entrants";
 import {useEffect, useState} from "react";
 import SpecialStages from "../states/specialStages";
 import axios from "../utils/axios";
-import ToggleSwitch from "../parts/ToggleSwitch";
 import SelectFilter from "../parts/SelectFilter";
 import PageBodyHeader from "../parts/PageBodyHeader";
 
 
 const bumpChart = () => {
-
-    const ssList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
     const globalTitle = useRecoilValue(Competition);
 
