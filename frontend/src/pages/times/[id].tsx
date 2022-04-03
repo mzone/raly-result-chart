@@ -16,6 +16,9 @@ import PageBodyHeader from "../../parts/PageBodyHeader";
 // @ts-ignore
 const ssTimeId: NextPage = ({ssNo}) => {
 
+    //const CNAME = "rallyTango2021";
+    const CNAME = "karatsu2022";
+
     const TOGGLE_SWITCH_DIVISION_STAGE = '1';
     const TOGGLE_SWITCH_DIVISION_OVER_ALL = '2';
     const toggleSwitchItems = [
@@ -42,7 +45,7 @@ const ssTimeId: NextPage = ({ssNo}) => {
             throw Error();
         }
         try {
-            const res = await axios.get(`/api/results?cname=rallyTango2021&ssNo=${ssNo}`);
+            const res = await axios.get(`/api/results?cname=${CNAME}&ssNo=${ssNo}`);
             const {sections, overalls} = res.data;
             setResults(sections);
             setOverallResults(overalls);
@@ -104,11 +107,11 @@ const ssTimeId: NextPage = ({ssNo}) => {
     }
 
     const sectionList = results.map((result) => {
-        return {...result, entrant: entrants.find((entrant) => entrant.no === result.car_no)}
+        return {...result, entrant: entrants.find((entrant) => entrant.no * 1 === result.car_no * 1)}
     }).filter((item) => selectedClass === 'ALL' ? true : item.entrant.className === selectedClass);
 
     const overallList = overallResults.map((result) => {
-        return {...result, entrant: entrants.find((entrant) => entrant.no === result.car_no)}
+        return {...result, entrant: entrants.find((entrant) => entrant.no * 1 === result.car_no * 1)}
     }).filter((item) => selectedClass === 'ALL' ? true : item.entrant.className === selectedClass);
 
 

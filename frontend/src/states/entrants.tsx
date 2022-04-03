@@ -6,8 +6,9 @@ export default atom<undefined | null>({
     default: selector({
         key: 'getEntrants',
         get: async ({get}) => {
+            const CNAME = "karatsu2022";
             try {
-                const res = await axios.get('http://localhost:8888/api/entrants/?cname=rallyTango2021');
+                const res = await axios.get(`http://localhost:8888/api/entrants/?cname=${CNAME}`);
                 return res.data.entrants;
             } catch (error) {
                 throw error;

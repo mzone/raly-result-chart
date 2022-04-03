@@ -6,8 +6,9 @@ export default atom<undefined | null>({
     default: selector({
         key: 'getSpecialStages',
         get: async ({get}) => {
+            const CNAME = "karatsu2022";
             try {
-                const res = await axios.get('http://localhost:8888/api/specialStages/?cname=rallyTango2021');
+                const res = await axios.get(`http://localhost:8888/api/specialStages/?cname=${CNAME}`);
                 return res.data;
             } catch (error) {
                 throw error;

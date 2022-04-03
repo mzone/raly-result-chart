@@ -1,9 +1,11 @@
 <?php
 
 define('HTML_SLICE_LINES', 16);
-define('FILE_DIR', dirname(__FILE__) . '/../../data/rallyTango2021');
-define('RESULT_PAGE_BASE_URL', 'https://trics.web.fc2.com/21/j/');
-define('LAST_SS_NO', 12);
+//define('FILE_DIR', dirname(__FILE__) . '/../../data/rallyTango2021');
+define('FILE_DIR', dirname(__FILE__) . '/../../data/karatsu2022');
+//define('RESULT_PAGE_BASE_URL', 'https://trics.web.fc2.com/21/j/');
+define('RESULT_PAGE_BASE_URL', 'http://ww21.tiki.ne.jp/~gravel-msc/sokuho/');
+define('LAST_SS_NO', 10);
 
 
 header("Content-type: text/html; charset=SJIS");

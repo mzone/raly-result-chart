@@ -13,6 +13,8 @@ import PageBodyHeader from "../parts/PageBodyHeader";
 
 const bumpChart = () => {
 
+    const CNAME = "karatsu2022";
+
     const globalTitle = useRecoilValue(Competition);
 
     const entrantsLoadable = useRecoilValueLoadable(Entrants);
@@ -44,7 +46,7 @@ const bumpChart = () => {
         try {
             const items = [...result[0], ...result[1]];
             setSSList(items);
-            getPosData(items.map((ss)=>ss.no));
+            getPosData(items.map((ss) => ss.no));
         } catch (e) {
             // TODO エラーダイアログ
         }
@@ -59,7 +61,7 @@ const bumpChart = () => {
             throw Error();
         }
         try {
-            const res = await axios.get(`/api/bumps?cname=rallyTango2021&ssNo=${ssList.join(',')}`);
+            const res = await axios.get(`/api/bumps?cname=${CNAME}&ssNo=${ssList.join(',')}`);
             setPosData(res.data);
 
 
@@ -69,15 +71,18 @@ const bumpChart = () => {
         }
     }
 
-    const data = entrants.filter((item) => selectedClass === 'ALL' ? true : item.className === selectedClass).map((item, key) => {
-        const poses = posData.filter((ssPos)=>ssPos.car_no === item.no);
+    const showEntrants = entrants.filter((item) => selectedClass === 'ALL' ? true : item.className === selectedClass);
+
+    const data = showEntrants.map((item, key) => {
+        const poses = posData.filter((ssPos) => ssPos.car_no * 1 === item.no * 1);
         return {
             id: `${item.no} ${item.drName}`,
             data: SSList.map((ss) => {
-                const posData = poses.find((p)=>p.ssNo == ss.no);
+                const posData = poses.find((p) => p.ssNo == ss.no);
+                const y = selectedClass === 'ALL' ? (posData && posData.pos != 0 ? posData.pos * 1 : null) :  (posData && posData.class_pos != 0 ? posData.class_pos * 1 : null);
                 return {
                     x: ss.no,
-                    y: posData && posData.pos != 0 ? posData.pos * 1 : null,
+                    y: y,
                 }
             })
         }
@@ -96,14 +101,15 @@ const bumpChart = () => {
                     <div>&nbsp;</div>
                     <div>
                         <form>
-                            <SelectFilter items={classList} current_key={selectedClass} change_event_function={(selectClass) => {
-                                setSelectedClass(selectClass);
-                            }}/>
+                            <SelectFilter items={classList} current_key={selectedClass}
+                                          change_event_function={(selectClass) => {
+                                              setSelectedClass(selectClass);
+                                          }}/>
                         </form>
                     </div>
                 </PageBodyHeader>
 
-                <div className={'bump-chart-wrap'} style={{height: entrants.length * 30 + 'px'}}>
+                <div className={'bump-chart-wrap'} style={{height: showEntrants.length * 14 + 100 + 'px'}}>
                     <BumpChart data={data}/>
                 </div>
             </PageBody>
