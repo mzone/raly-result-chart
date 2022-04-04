@@ -80,6 +80,4 @@ fabric.properties
 /frontend/.next
 /frontend/*.log
 
-/public/css
-/public/js
-/public/data
+/backend/data
