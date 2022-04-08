@@ -4,8 +4,9 @@ import SSList from "../parts/SSList";
 import {useRecoilValue, useRecoilValueLoadable} from "recoil";
 import SpecialStages from "../states/specialStages";
 import Competition from "../states/competition";
+import {NextPage} from "next";
 
-const index = () => {
+const Index: NextPage = () => {
 
     const globalTitle = useRecoilValue(Competition);
     const specialStages = useRecoilValueLoadable(SpecialStages);
@@ -22,4 +23,4 @@ const index = () => {
     )
 };
 
-export default index;
+export default Index;

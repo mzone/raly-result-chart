@@ -14,7 +14,7 @@ import SelectFilter from "../../parts/SelectFilter";
 import PageBodyHeader from "../../parts/PageBodyHeader";
 
 // @ts-ignore
-const ssTimeId: NextPage = ({ssNo}) => {
+const SsTimeId: NextPage = ({ssNo}) => {
 
     //const CNAME = "rallyTango2021";
     const CNAME = "karatsu2022";
@@ -100,7 +100,7 @@ const ssTimeId: NextPage = ({ssNo}) => {
             setSSList([]);
             setSSData({});
         }
-    }, [specialStagesLoadable]);
+    }, [ssNo, specialStagesLoadable]);
 
     const toggleResultPage = (division) => {
         setResultDivision(division);
@@ -119,7 +119,6 @@ const ssTimeId: NextPage = ({ssNo}) => {
         'left': toggleSwitchItems.map((item) => item.key).indexOf(resultDivision) * -100 + '%'
     };
 
-    // @ts-ignore
     return (
         <>
             <PageHeader global_title={globalTitle} page_title={`SS${SSData?.no} ${SSData?.name}`}>
@@ -171,10 +170,10 @@ const ssTimeId: NextPage = ({ssNo}) => {
     );
 }
 
-ssTimeId.getInitialProps = ({query}) => {
+SsTimeId.getInitialProps = ({query}) => {
     const {id} = query;
     return {ssNo: id};
 }
 
 
-export default ssTimeId;
+export default SsTimeId;

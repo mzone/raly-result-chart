@@ -7,9 +7,9 @@ export default function GlobalNavigation() {
     const activeClassName = 'btn-global-navigation--active';
 
     const navClassNames = {
-        'time' : 'btn-global-navigation ' + (["/", "/times/[id]"].includes(path) ? activeClassName : null),
-        'bumpChart' : 'btn-global-navigation ' + (["/bump-chart"].includes(path) ? activeClassName : null),
-        'entrants' : 'btn-global-navigation ' + (["/entrants"].includes(path) ? activeClassName : null),
+        'time' : 'btn-global-navigation ' + (["/", "/Times/[id]"].includes(path) ? activeClassName : null),
+        'bumpChart' : 'btn-global-navigation ' + (["/BumpChart"].includes(path) ? activeClassName : null),
+        'entrants' : 'btn-global-navigation ' + (["/Entrants"].includes(path) ? activeClassName : null),
     }
 
     return (
@@ -26,7 +26,7 @@ export default function GlobalNavigation() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/bump-chart/">
+                    <Link href="/BumpChart/">
                         <a className={navClassNames['bumpChart']} title="BUMP CHART">
                             <span>
                                 <i className="btn-global-navigation__icon fas fa-chart-line"/>
@@ -36,7 +36,7 @@ export default function GlobalNavigation() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/entrants/">
+                    <Link href="/Entrants/">
                         <a className={navClassNames['entrants']} title="ENTRANT">
                             <span>
                                 <i className="btn-global-navigation__icon fas fa-user-group"/>

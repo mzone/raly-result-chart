@@ -24,7 +24,7 @@ const SSList = ({items}) => {
 const SSLIstItem = (no, name, dist) => {
     return (
         <li key={no}>
-            <Link href={"/times/" + no}>
+            <Link href={"/Times/" + no}>
                 <a className="ss-list-item">
                     <div className="ss-list-item__no">SS {no}</div>
                     <div className="ss-list-item__name">{name}</div>

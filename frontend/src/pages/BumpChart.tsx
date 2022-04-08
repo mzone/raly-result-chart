@@ -9,14 +9,13 @@ import SpecialStages from "../states/specialStages";
 import axios from "../utils/axios";
 import SelectFilter from "../parts/SelectFilter";
 import PageBodyHeader from "../parts/PageBodyHeader";
+import {NextPage} from "next";
 
-
-const bumpChart = () => {
+const BumpChart: NextPage = () => {
 
     const CNAME = "karatsu2022";
 
     const globalTitle = useRecoilValue(Competition);
-
     const entrantsLoadable = useRecoilValueLoadable(Entrants);
     const specialStagesLoadable = useRecoilValueLoadable(SpecialStages);
     const [selectedClass, setSelectedClass] = useState<string>('ALL');
@@ -117,4 +116,4 @@ const bumpChart = () => {
     )
 };
 
-export default bumpChart;
+export default BumpChart;

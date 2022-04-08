@@ -2,15 +2,15 @@ import PageHeader from "../parts/PageHeader";
 import PageBody from "../parts/PageBody";
 import EntrantList from "../parts/EntrantList";
 import {useRecoilValue, useRecoilValueLoadable} from "recoil";
-import Entrants from "../states/entrants";
+import EntrantsState from "../states/entrants";
 import Competition from "../states/competition";
+import {NextPage} from "next";
 
-
-const entrantsPage = () => {
+const Entrants: NextPage = () => {
 
     const globalTitle = useRecoilValue(Competition);
 
-    const entrantsLoadable = useRecoilValueLoadable(Entrants);
+    const entrantsLoadable = useRecoilValueLoadable(EntrantsState);
 
     return (
         <>
@@ -23,4 +23,4 @@ const entrantsPage = () => {
     )
 };
 
-export default entrantsPage;
+export default Entrants;
