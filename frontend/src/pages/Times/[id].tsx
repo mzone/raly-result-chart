@@ -151,13 +151,13 @@ const SsTimeId: NextPage = ({ssNo}) => {
 
                 <div className="result-list-wrap">
                     <ul className="result-list" style={resultListStyle}>
-                        <li className="stage">
+                        <li className="result-list-item result-list-item--stage">
                             <SSTimeList items={sectionList} targetTime={sectionTargetTime}
                                         click_item_function={(item) => {
                                             setSectionTargetTime(item.sec);
                                         }}/>
                         </li>
-                        <li className="over-all">
+                        <li className="result-list-item result-list-item--over-all">
                             <SSTimeList items={overallList} targetTime={overallTargetTime}
                                         click_item_function={(item) => {
                                             setOverallTargetTime(item.sec);

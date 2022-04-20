@@ -4,7 +4,7 @@ import Competition from "../states/competition";
 export default function PageHeader({global_title=null, page_title=null, children=null}) {
     return (
         <div className="page-header-wrap">
-            <div className="page-header">
+            <div className="page-header responsive-content-wrap">
                 <div className="page-header__left">
                     {children ? children.left : null}
                 </div>

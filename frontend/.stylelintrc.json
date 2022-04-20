@@ -1,11 +1,20 @@
 {
   "plugins": ["stylelint-order"],
   "extends": ["stylelint-config-standard"],
+  "customSyntax": "postcss-scss",
   "rules": {
     "at-rule-no-unknown": [
       true,
       {
         "ignoreAtRules": ["tailwind", "apply", "variants", "responsive", "screen"]
+      }
+    ],
+    "function-no-unknown": [
+      true,
+      {
+        "ignoreFunctions": [
+          "map-get"
+        ]
       }
     ],
     "string-quotes": "single",

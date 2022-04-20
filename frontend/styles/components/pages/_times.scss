@@ -21,8 +21,26 @@
         width: 200%;
         z-index: 1;
 
-        > li {
+        .result-list-item {
           flex: 1;
+        }
+      }
+    }
+
+    @media screen and (min-width: map-get($grid-breakpoints, 'md')) {
+      .toggle-switch-wrap {
+        display: none;
+      }
+
+      .result-list-wrap {
+        .result-list {
+          width: 100%;
+        }
+      }
+
+      .result-list-item {
+        &--over-all {
+          background-color: rgba(255, 255, 255, 0.8);
         }
       }
     }

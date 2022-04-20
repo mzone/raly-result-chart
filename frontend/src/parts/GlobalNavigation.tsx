@@ -14,7 +14,8 @@ export default function GlobalNavigation() {
 
     return (
         <div className="global-navigation">
-            <ul>
+            <div className="global-navigation__inner responsive-content-wrap">
+                <ul>
                 <li>
                     <Link href="/">
                         <a className={navClassNames['time']} title="TIME">
@@ -46,6 +47,7 @@ export default function GlobalNavigation() {
                     </Link>
                 </li>
             </ul>
+            </div>
         </div>
     )
 }

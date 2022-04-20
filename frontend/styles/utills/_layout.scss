@@ -1,0 +1,20 @@
+.responsive-content-wrap {
+  max-width: 100% !important;
+  width: 100% !important;
+
+  @media screen and (min-width: map-get($grid-breakpoints, 'sm')) {
+    max-width: map-get($grid-breakpoints, 'sm') !important;
+  }
+
+  @media screen and (min-width: map-get($grid-breakpoints, 'md')) {
+    max-width: map-get($grid-breakpoints, 'md') !important;
+  }
+
+  @media screen and (min-width: map-get($grid-breakpoints, 'xl')) {
+    max-width: map-get($grid-breakpoints, 'xl') !important;
+  }
+
+  @media screen and (min-width: map-get($grid-breakpoints, 'xxl')) {
+    max-width: 100% !important;
+  }
+}

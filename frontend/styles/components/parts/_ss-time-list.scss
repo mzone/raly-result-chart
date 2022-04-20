@@ -87,8 +87,8 @@
     &__times {
       align-self: center;
       flex-grow: 1;
-      text-align: right;
       position: relative;
+      text-align: right;
 
       .time {
         color: #000;
@@ -102,18 +102,20 @@
 
       .diff {
         color: $text-color-sub;
+        display: inline-block;
         font-size: 85%;
         line-height: 1.1;
         margin-bottom: -1em;
-        white-space: nowrap;
-        display: inline-block;
-        padding: 0.1em;
         margin-right: -0.1em;
+        padding: 0.1em;
         position: absolute;
         right: 0;
+        white-space: nowrap;
+
         &--plus {
           color: $vivid-red;
-          &:before {
+
+          &::before {
             content: '+';
           }
         }
