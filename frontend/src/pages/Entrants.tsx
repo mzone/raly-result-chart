@@ -16,7 +16,7 @@ const Entrants: NextPage = () => {
         <>
             <PageHeader global_title={globalTitle} page_title="ENTRANT"/>
 
-            <PageBody>
+            <PageBody max_width={`576px`}>
                 <EntrantList items={entrantsLoadable.contents}/>
             </PageBody>
         </>

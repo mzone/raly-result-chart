@@ -12,6 +12,8 @@ import ToggleSwitch from "../../parts/ToggleSwitch";
 import BtnPageBack from "../../parts/BtnPageBack";
 import SelectFilter from "../../parts/SelectFilter";
 import PageBodyHeader from "../../parts/PageBodyHeader";
+import SSList from "../../parts/SSList";
+import PageBodySideNavigation from "../../parts/PageBodySideNavigation";
 
 // @ts-ignore
 const SsTimeId: NextPage = ({ssNo}) => {
@@ -130,7 +132,7 @@ const SsTimeId: NextPage = ({ssNo}) => {
                     }
                 }
             </PageHeader>
-            <PageBody page_name="times">
+            <PageBody page_name="times" max_width={`1400px`}>
                 <PageBodyHeader>
                     <div className="toggle-switch-wrap">
                         <ToggleSwitch
@@ -152,12 +154,14 @@ const SsTimeId: NextPage = ({ssNo}) => {
                 <div className="result-list-wrap">
                     <ul className="result-list" style={resultListStyle}>
                         <li className="result-list-item result-list-item--stage">
+                            <h4 className="result-list-item__title">SECTION</h4>
                             <SSTimeList items={sectionList} targetTime={sectionTargetTime}
                                         click_item_function={(item) => {
                                             setSectionTargetTime(item.sec);
                                         }}/>
                         </li>
                         <li className="result-list-item result-list-item--over-all">
+                            <h4 className="result-list-item__title">OVER ALL</h4>
                             <SSTimeList items={overallList} targetTime={overallTargetTime}
                                         click_item_function={(item) => {
                                             setOverallTargetTime(item.sec);

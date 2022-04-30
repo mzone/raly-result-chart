@@ -1,5 +1,9 @@
 .page-body {
   padding: $page-header-height+20px 0 $global-navigation-height+40px;
+
+  &__inner {
+    margin: 0 auto;
+  }
 }
 
 .page-body-header {
