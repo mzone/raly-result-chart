@@ -34,7 +34,7 @@
 
     @media screen and (min-width: map-get($grid-breakpoints, 'md')) {
       .toggle-switch-wrap {
-        display: none;
+        visibility: hidden;
       }
 
       .result-list-wrap {

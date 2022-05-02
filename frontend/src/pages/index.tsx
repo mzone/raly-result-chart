@@ -16,7 +16,7 @@ const Index: NextPage = () => {
         <>
             <PageHeader global_title={globalTitle} page_title="TIME"/>
 
-            <PageBody>
+            <PageBody max_width={`576px`}>
                 <SSList items={specialStages.contents}/>
             </PageBody>
         </>

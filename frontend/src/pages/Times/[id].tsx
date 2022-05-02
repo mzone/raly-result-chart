@@ -1,6 +1,6 @@
 import PageHeader from "../../parts/PageHeader";
 import PageBody from "../../parts/PageBody";
-import {useRecoilValue, useRecoilValueLoadable} from "recoil";
+import {useRecoilRefresher_UNSTABLE, useRecoilValue, useRecoilValueLoadable} from "recoil";
 import {NextPage} from 'next'
 import Entrants from "../../states/entrants";
 import SpecialStages from "../../states/specialStages";
@@ -19,7 +19,8 @@ import PageBodySideNavigation from "../../parts/PageBodySideNavigation";
 const SsTimeId: NextPage = ({ssNo}) => {
 
     //const CNAME = "rallyTango2021";
-    const CNAME = "karatsu2022";
+    //const CNAME = "karatsu2022";
+    const CNAME = "kumakougen2022";
 
     const TOGGLE_SWITCH_DIVISION_STAGE = '1';
     const TOGGLE_SWITCH_DIVISION_OVER_ALL = '2';
@@ -67,7 +68,13 @@ const SsTimeId: NextPage = ({ssNo}) => {
     const entrantsLoadable = useRecoilValueLoadable(Entrants);
     const specialStagesLoadable = useRecoilValueLoadable(SpecialStages);
     const [SSList, setSSList] = useState<Array<any>>([]);
-    const [SSData, setSSData] = useState<Object>({});
+
+    interface SSDataProvider {
+        no: Number,
+        name: string,
+    }
+
+    const [SSData, setSSData] = useState<SSDataProvider>();
     const [entrants, setEntrants] = useState<Array<any>>([]);
     const [classList, setClassList] = useState<Array<any>>([]);
     const [selectedClass, setSelectedClass] = useState<string>('ALL');
@@ -100,12 +107,33 @@ const SsTimeId: NextPage = ({ssNo}) => {
 
         return () => {
             setSSList([]);
-            setSSData({});
+            setSSData({
+                no: 0,
+                name: ''
+            });
         }
     }, [ssNo, specialStagesLoadable]);
 
     const toggleResultPage = (division) => {
         setResultDivision(division);
+    }
+
+    let clickRefreshWorking = false;
+    const clickRefresh = async () => {
+        if(clickRefreshWorking) {
+            return;
+        }
+        try {
+            clickRefreshWorking = true;
+            const res = await axios.get(`/api/results/make-files.php?key=1&ss=${ssNo}`);
+            console.log(res);// TODO DELETE
+            clickRefreshWorking = false;
+            getSSData(ssNo);
+
+        } catch (e) {
+
+            // TODO アラートダイアログ
+        }
     }
 
     const sectionList = results.map((result) => {
@@ -121,14 +149,19 @@ const SsTimeId: NextPage = ({ssNo}) => {
         'left': toggleSwitchItems.map((item) => item.key).indexOf(resultDivision) * -100 + '%'
     };
 
+    const pageTitle = `SS${SSData?.no} ${SSData?.name}`;
+
     return (
         <>
-            <PageHeader global_title={globalTitle} page_title={`SS${SSData?.no} ${SSData?.name}`}>
+            <PageHeader global_title={globalTitle} page_title={pageTitle}>
                 {
                     {
                         'left': (
                             <BtnPageBack href="/"/>
-                        )
+                        ),
+                        'right': (
+                            <a onClick={clickRefresh}><i className="fa-solid fa-rotate-right"></i> 更新</a>
+                        ),
                     }
                 }
             </PageHeader>

@@ -13,7 +13,7 @@ import {NextPage} from "next";
 
 const BumpChart: NextPage = () => {
 
-    const CNAME = "karatsu2022";
+    const CNAME = "kumakougen2022";
 
     const globalTitle = useRecoilValue(Competition);
     const entrantsLoadable = useRecoilValueLoadable(Entrants);
@@ -70,6 +70,28 @@ const BumpChart: NextPage = () => {
         }
     }
 
+
+    let clickRefreshWorking = false;
+    const clickRefresh = async () => {
+        if(clickRefreshWorking) {
+            return;
+        }
+        try {
+            const result = typeof specialStagesLoadable.contents === 'object' ? specialStagesLoadable.contents : [];
+            const items = [...result[0], ...result[1]];
+
+            clickRefreshWorking = true;
+            const res = await axios.get(`/api/results/make-files.php?key=1&ss=${items.map((ss) => ss.no).join(',')}`);
+            console.log(res);// TODO DELETE
+            clickRefreshWorking = false;
+            getPosData(items.map((ss) => ss.no));
+
+        } catch (e) {
+
+            // TODO アラートダイアログ
+        }
+    }
+
     const showEntrants = entrants.filter((item) => selectedClass === 'ALL' ? true : item.className === selectedClass);
 
     const data = showEntrants.map((item, key) => {
@@ -93,7 +115,15 @@ const BumpChart: NextPage = () => {
 
     return (
         <>
-            <PageHeader global_title={globalTitle} page_title="BUMP"/>
+            <PageHeader global_title={globalTitle} page_title="BUMP">
+                {
+                    {
+                        'right': (
+                            <a onClick={clickRefresh}><i className="fa-solid fa-rotate-right"></i> 更新</a>
+                        ),
+                    }
+                }
+            </PageHeader>
             <PageBody>
 
                 <PageBodyHeader>

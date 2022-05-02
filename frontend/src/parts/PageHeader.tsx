@@ -1,6 +1,3 @@
-import {useRecoilValue} from "recoil";
-import Competition from "../states/competition";
-
 export default function PageHeader({global_title=null, page_title=null, children=null}) {
     return (
         <div className="page-header-wrap">
@@ -21,7 +18,7 @@ export default function PageHeader({global_title=null, page_title=null, children
                 </div>
 
                 <div className="page-header__checker-pattern">
-                    <img src="/checker-pattern.svg" alt="" />
+                    <img src="/result-chart/checker-pattern.svg" alt="" />
                 </div>
             </div>
         </div>

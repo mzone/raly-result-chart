@@ -1,35 +1,42 @@
 <?php
 
 define('HTML_SLICE_LINES', 16);
-//define('FILE_DIR', dirname(__FILE__) . '/../../data/rallyTango2021');
-define('FILE_DIR', dirname(__FILE__) . '/../../data/karatsu2022');
-//define('RESULT_PAGE_BASE_URL', 'https://trics.web.fc2.com/21/j/');
-define('RESULT_PAGE_BASE_URL', 'http://ww21.tiki.ne.jp/~gravel-msc/sokuho/');
-define('LAST_SS_NO', 10);
+define('FILE_DIR', dirname(__FILE__) . '/../../data');
+define('RESULT_PAGE_BASE_URL', 'http://2022mac.fg-rally.info/');
 
 
 header("Content-type: text/html; charset=SJIS");
 
 
-$key = isset($_GET['key']) ? htmlspecialchars($_GET['key'], ENT_QUOTES) : null;
+$key = isset($_GET['key']) ? $_GET['key'] : null;
+$ssString = isset($_GET['ss']) ? htmlspecialchars($_GET['ss'], ENT_QUOTES) : null;
+$cName = 'kumakougen2022'; //isset($_GET['cname']) ? htmlspecialchars($_GET['cname'], ENT_QUOTES) : null;
 
-if ( ! $key) {
+if ( ! $key || ! $ssString || !$cName) {
     throw new ErrorException("取得できませんでした key param not found");
 }
 
+$ssList = explode(',', $ssString);
+
+if ( ! count($ssList) > 0) {
+    throw new ErrorException("取得できませんでした key param not found");
+}
 
 function makePageUrlList()
 {
+    global $ssList;
     $list = [];
 
-    for ($ssNo = 1; $ssNo <= LAST_SS_NO; $ssNo++) {
-        $list[] = ["SS{$ssNo}.json", RESULT_PAGE_BASE_URL . "SS{$ssNo}a.htm"];
+    foreach ($ssList as $val) {
+        $list[] = ["SS{$val}.json", RESULT_PAGE_BASE_URL . "SS{$val}a.htm"];
     }
     return $list;
 }
 
 function saveJsonData($fileName, $url)
 {
+    global $cName;
+
     $html = file_get_contents($url);
     $html = str_replace(["\r\n", "\r", "\n"], '', $html);
     $pattern = '@<TD.*?>(.*?)</TD>@';
@@ -72,7 +79,7 @@ function saveJsonData($fileName, $url)
       'overalls' => $overalls,
     ];
 
-    file_put_contents(FILE_DIR . "/{$fileName}", json_encode($fileData));
+    file_put_contents(FILE_DIR . "/{$cName}/{$fileName}", json_encode($fileData));
 }
 
 function hour_to_sec($str)
@@ -102,6 +109,8 @@ function makeResultDataFiles()
     }
 }
 
+header("Content-Type: application/json; charset=utf-8");
+header('Access-Control-Allow-Origin: *');
 makeResultDataFiles();
 
 
