@@ -48,13 +48,13 @@ php -S localhost:8888
 
 URL
 `http://localhost:8888/api/results/make-files.php?key=1` にアクセス (key=1は呪文)
-アクセスすると今は、ツール・ド・九州 in 唐津 のSS1からSS10までのデータが以下に保存されます。
+アクセスすると今は、久万高原ラリー2022 のSS1からSS8までのデータが以下に保存されます。
 
-- /data/karatsu2022/SS1.json
-- /data/karatsu2022/SS2.json
+- /data/kuma2022/SS1.json
+- /data/kuma2022/SS2.json
 - ...
-- /data/karatsu2022/SS9.json
-- /data/karatsu2022/SS10.json
+- /data/kuma2022/SS9.json
+- /data/kuma2022/SS10.json
 
 ### 3, フロントエンドサーバーの起動（node）
 
