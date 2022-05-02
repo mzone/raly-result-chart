@@ -8,7 +8,8 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "lint:style": "stylelint '**/*.{css,scss,sass}'",
-    "lint:style:fix": "stylelint --fix '**/*.{css,scss,sass}'"
+    "lint:style:fix": "stylelint --fix '**/*.{css,scss,sass}'",
+    "export": "APP_ENV=production next build && next export"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^6.0.0",
