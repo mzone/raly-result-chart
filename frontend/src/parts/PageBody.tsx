@@ -10,7 +10,7 @@ export default function PageBody({children = null, page_name = null, max_width =
 
     //スタイル設定
     const style = {};
-    if (max_width) style['max-width'] = `${max_width}`;
+    if (max_width) style['maxWidth'] = `${max_width}`;
 
     //カラムコンテンツ設定
     const bodyContent = isTwoColumns ?
