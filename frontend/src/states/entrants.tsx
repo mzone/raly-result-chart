@@ -1,18 +1,6 @@
-import {atom, selector} from 'recoil';
-import axios from "../utils/axios";
+import {atom} from 'recoil';
 
-export default atom<undefined | null>({
+export default atom<Array<any>>({
     key: 'entrants',
-    default: selector({
-        key: 'getEntrants',
-        get: async ({get}) => {
-            const CNAME = "kumakougen2022";
-            try {
-                const res = await axios.get(`/api/entrants/?cname=${CNAME}`);
-                return res.data.entrants;
-            } catch (error) {
-                throw error;
-            }
-        },
-    }),
+    default: [],
 });

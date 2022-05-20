@@ -1,11 +1,15 @@
 import Link from 'next/link';
+import {useRecoilState} from "recoil";
+import Competition from "../states/competition";
 
 const SSList = ({items}) => {
+
+    const [cname] = useRecoilState(Competition);
 
     const days = !Array.isArray(items) ? (<li>EMPTY</li>) : items.map((day, index) => {
 
         const SSLIstItems = !Array.isArray(day) ? (
-            <li>EMPTY</li>) : day.map((SS) => SSLIstItem(SS.no, SS.name, SS.dist))
+            <li>EMPTY</li>) : day.map((SS) => SSLIstItem(cname, SS.no, SS.name, SS.dist))
         return (
             <li className="ss-list-day-item" key={index}>
                 <div className="ss-list-day-item__day-label">Day {index + 1}</div>
@@ -21,10 +25,10 @@ const SSList = ({items}) => {
         </ul>
     )
 }
-const SSLIstItem = (no, name, dist) => {
+const SSLIstItem = (cname, no, name, dist) => {
     return (
         <li key={no}>
-            <Link href={"/Times/" + no}>
+            <Link href={`/Times?cname=${cname}&ss_no=${no}`}>
                 <a className="ss-list-item">
                     <div className="ss-list-item__no">SS {no}</div>
                     <div className="ss-list-item__name">{name}</div>

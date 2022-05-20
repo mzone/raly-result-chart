@@ -1,16 +1,15 @@
 <?php
 
 define('HTML_SLICE_LINES', 16);
+define('SETTINGS_FILE_NAME', "settings.php");
 define('FILE_DIR', dirname(__FILE__) . '/../../data');
-define('RESULT_PAGE_BASE_URL', 'http://2022mac.fg-rally.info/');
-
 
 header("Content-type: text/html; charset=SJIS");
 
 
 $key = isset($_GET['key']) ? $_GET['key'] : null;
 $ssString = isset($_GET['ss']) ? htmlspecialchars($_GET['ss'], ENT_QUOTES) : null;
-$cName = 'kumakougen2022'; //isset($_GET['cname']) ? htmlspecialchars($_GET['cname'], ENT_QUOTES) : null;
+$cName = isset($_GET['cname']) ? htmlspecialchars($_GET['cname'], ENT_QUOTES) : null;
 
 if ( ! $key || ! $ssString || !$cName) {
     throw new ErrorException("取得できませんでした key param not found");
@@ -20,6 +19,13 @@ $ssList = explode(',', $ssString);
 
 if ( ! count($ssList) > 0) {
     throw new ErrorException("取得できませんでした key param not found");
+}
+
+// 試合ごとの独自設定読み込み
+try {
+    require_once FILE_DIR . "/{$cName}/" . SETTINGS_FILE_NAME;
+} catch (Exception $ex) {
+    throw new ErrorException($ex->getMessage());
 }
 
 function makePageUrlList()

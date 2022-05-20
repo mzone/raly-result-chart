@@ -9,7 +9,8 @@
   width: 100%;
 
   &::after {
-    background: linear-gradient($snow, rgb(223 224 230));
+    // background: linear-gradient($snow, rgb(223 224 230));
+    background-color: #f1f1f1;
     content: '';
     height: 100%;
     left: 0;

@@ -18,8 +18,7 @@ type AppPropsWithLayout = AppProps & {
 }
 
 const app = ({Component, pageProps}: AppPropsWithLayout) => {
-    // Use the layout defined at the page level, if available
-    //const getLayout = Component.getLayout ?? ((page) => page)
+
     const getLayout = Component.getLayout ?? LayoutDefault;
 
     return (

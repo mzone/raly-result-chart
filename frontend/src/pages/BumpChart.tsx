@@ -12,10 +12,8 @@ import PageBodyHeader from "../parts/PageBodyHeader";
 import {NextPage} from "next";
 
 const BumpChart: NextPage = () => {
-
-    const CNAME = "kumakougen2022";
-
     const globalTitle = useRecoilValue(Competition);
+    const CNAME = globalTitle;
     const entrantsLoadable = useRecoilValueLoadable(Entrants);
     const specialStagesLoadable = useRecoilValueLoadable(SpecialStages);
     const [selectedClass, setSelectedClass] = useState<string>('ALL');
@@ -81,7 +79,7 @@ const BumpChart: NextPage = () => {
             const items = [...result[0], ...result[1]];
 
             clickRefreshWorking = true;
-            const res = await axios.get(`/api/results/make-files.php?key=1&ss=${items.map((ss) => ss.no).join(',')}`);
+            const res = await axios.get(`/api/results/make-files.php?key=1&cname=${CNAME}&ss=${items.map((ss) => ss.no).join(',')}`);
             console.log(res);// TODO DELETE
             clickRefreshWorking = false;
             getPosData(items.map((ss) => ss.no));

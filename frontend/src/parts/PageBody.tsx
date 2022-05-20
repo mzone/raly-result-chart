@@ -1,4 +1,34 @@
+import {useRouter} from "next/router";
+import {useRecoilState} from "recoil";
+import Competition from "../states/competition";
+import Entrants from "../states/entrants";
+import SpecialStages from "../states/specialStages";
+import {useEffect} from "react";
+import axios from "../utils/axios";
+
 export default function PageBody({children = null, page_name = null, max_width = null}) {
+
+    const { cname } = useRouter().query;
+
+    const [competition, setCompetition] = useRecoilState(Competition);
+    const [entrants, setEntrants] = useRecoilState(Entrants);
+    const [specialStages, setSpecialStages] = useRecoilState(SpecialStages);
+
+    useEffect(() => {
+        if(typeof cname !== 'undefined' ) {
+            // @ts-ignore
+            // TODO check!!!
+            setCompetition(cname);
+
+            (async () => {
+                const specialStagesRes = await axios.get(`/api/specialStages/?cname=${cname}`);
+                setSpecialStages(specialStagesRes.data);
+
+                const entrantsRes = await axios.get(`/api/entrants/?cname=${cname}`);
+                setEntrants(entrantsRes.data.entrants);
+            })();
+        }
+    }, [cname]);
 
     const isTwoColumns = children.hasOwnProperty('side');
 

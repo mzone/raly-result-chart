@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import {useRouter} from 'next/router';
+import {useRecoilValue} from "recoil";
+import Competition from "../states/competition";
 
 export default function GlobalNavigation() {
     const router = useRouter();
@@ -12,12 +14,14 @@ export default function GlobalNavigation() {
         'entrants' : 'btn-global-navigation ' + (["/Entrants"].includes(path) ? activeClassName : null),
     }
 
+    const cname = useRecoilValue(Competition);
+
     return (
         <div className="global-navigation">
             <div className="global-navigation__inner responsive-content-wrap">
                 <ul>
                 <li>
-                    <Link href="/">
+                    <Link href={`/?cname=${cname}`}>
                         <a className={navClassNames['time']} title="TIME">
                             <span>
                                 <i className="btn-global-navigation__icon fas fa-stopwatch"/>
@@ -27,7 +31,7 @@ export default function GlobalNavigation() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/BumpChart/">
+                    <Link href={`/BumpChart/?cname=${cname}`}>
                         <a className={navClassNames['bumpChart']} title="BUMP CHART">
                             <span>
                                 <i className="btn-global-navigation__icon fas fa-chart-line"/>
@@ -37,7 +41,7 @@ export default function GlobalNavigation() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/Entrants/">
+                    <Link href={`/Entrants/?cname=${cname}`}>
                         <a className={navClassNames['entrants']} title="ENTRANT">
                             <span>
                                 <i className="btn-global-navigation__icon fas fa-user-group"/>

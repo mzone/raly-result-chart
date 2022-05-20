@@ -1,26 +1,26 @@
-import PageHeader from "../../parts/PageHeader";
-import PageBody from "../../parts/PageBody";
+import PageHeader from "../parts/PageHeader";
+import PageBody from "../parts/PageBody";
 import {useRecoilRefresher_UNSTABLE, useRecoilValue, useRecoilValueLoadable} from "recoil";
 import {NextPage} from 'next'
-import Entrants from "../../states/entrants";
-import SpecialStages from "../../states/specialStages";
+import Entrants from "../states/entrants";
+import SpecialStages from "../states/specialStages";
 import {useEffect, useState} from "react";
-import SSTimeList from "../../parts/SSTimeList";
-import Competition from "../../states/competition";
-import axios from "../../utils/axios";
-import ToggleSwitch from "../../parts/ToggleSwitch";
-import BtnPageBack from "../../parts/BtnPageBack";
-import SelectFilter from "../../parts/SelectFilter";
-import PageBodyHeader from "../../parts/PageBodyHeader";
-import SSList from "../../parts/SSList";
-import PageBodySideNavigation from "../../parts/PageBodySideNavigation";
+import SSTimeList from "../parts/SSTimeList";
+import Competition from "../states/competition";
+import axios from "../utils/axios";
+import ToggleSwitch from "../parts/ToggleSwitch";
+import BtnPageBack from "../parts/BtnPageBack";
+import SelectFilter from "../parts/SelectFilter";
+import PageBodyHeader from "../parts/PageBodyHeader";
+import SSList from "../parts/SSList";
+import PageBodySideNavigation from "../parts/PageBodySideNavigation";
+import {useRouter} from "next/router";
 
 // @ts-ignore
-const SsTimeId: NextPage = ({ssNo}) => {
+const Times: NextPage = () => {
 
-    //const CNAME = "rallyTango2021";
-    //const CNAME = "karatsu2022";
-    const CNAME = "kumakougen2022";
+    const { cname, ss_no } = useRouter().query;
+    const ssNo = ss_no;
 
     const TOGGLE_SWITCH_DIVISION_STAGE = '1';
     const TOGGLE_SWITCH_DIVISION_OVER_ALL = '2';
@@ -48,7 +48,7 @@ const SsTimeId: NextPage = ({ssNo}) => {
             throw Error();
         }
         try {
-            const res = await axios.get(`/api/results?cname=${CNAME}&ssNo=${ssNo}`);
+            const res = await axios.get(`/api/results?cname=${cname}&ssNo=${ssNo}`);
             const {sections, overalls} = res.data;
             setResults(sections);
             setOverallResults(overalls);
@@ -100,6 +100,8 @@ const SsTimeId: NextPage = ({ssNo}) => {
         try {
             const items = [...result[0], ...result[1]];
             setSSList(items);
+            // @ts-ignore
+            // TODO check!!!
             setSSData(items.find((ss) => ss.no === ssNo * 1));
         } catch (e) {
             // TODO エラーダイアログ
@@ -125,7 +127,7 @@ const SsTimeId: NextPage = ({ssNo}) => {
         }
         try {
             clickRefreshWorking = true;
-            const res = await axios.get(`/api/results/make-files.php?key=1&ss=${ssNo}`);
+            const res = await axios.get(`/api/results/make-files.php?key=1&cname=${cname}&ss=${ssNo}`);
             console.log(res);// TODO DELETE
             clickRefreshWorking = false;
             getSSData(ssNo);
@@ -207,10 +209,4 @@ const SsTimeId: NextPage = ({ssNo}) => {
     );
 }
 
-SsTimeId.getInitialProps = ({query}) => {
-    const {id} = query;
-    return {ssNo: id};
-}
-
-
-export default SsTimeId;
+export default Times;
